@@ -1,0 +1,4 @@
+telegram_token: "your-token-here"
+template_path: "p3_20190201.tmpl"
+time_zone: "Asia/Ho_Chi_Minh"
+split_token: "|" # token used for split measure label.
