@@ -1,0 +1,21 @@
+{{if eq .Status "firing"}}
+<b>⚠️⚠️⚠️{{.Status | str_UpperCase}} - {{ index .CommonLabels "alertname" }}</b>
+{{end -}}
+
+{{if eq .Status "resolved"}}
+<b>✅✅✅ {{.Status | str_UpperCase}} - {{ index .CommonLabels "alertname" }}</b>
+{{end -}}
+
+severity | instance | job | summary
+{{range $val := .Alerts -}}
+{{$severity := index $val.Labels "severity" }}
+  {{- if eq $severity "warning" -}} ⚠️ warning 
+  {{- else if eq $severity "critical" -}} 🚨🚨🚨 critical 
+  {{- else -}} ⚠️ warning 
+{{end}} | {{ index $val.Labels "instance" }} | {{ index $val.Labels "job" }} | {{ index $val.Annotations "summary" }}
+{{end -}}
+
+Monitor={{ index .CommonLabels "monitor" }}
+Description: {{ index .CommonAnnotations "description" }}
+Summary: {{ index .CommonAnnotations "summary" }}
+
